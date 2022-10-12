@@ -1,5 +1,5 @@
 -----------------------
-Purpose of PPMatch
+Purpose of LGPQ
 -----------------------
 
 The project demonstrates serveral C++11 features inside the Enclave:
