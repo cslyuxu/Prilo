@@ -1,0 +1,12 @@
+# Undirected graph: ../../data/output/QueryGen-9.txt
+# QUERY with Diameter 4
+# Nodes: 8 Edges: 14
+# FromNodeId	Label	ToNodeId
+#	98406	47	260240	260241	260245
+#	52682	28	100126
+#	260241	22	260245
+#	38245	64	260240	260245	260241	98406	52682
+#	260245	62
+#	100126	4
+#	50338	27	260240	98406
+#	260240	3	260245	260241

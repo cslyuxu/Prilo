@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBloomFilter.a  CMakeFiles/BloomFilter.dir/BloomFilter.cpp.o CMakeFiles/BloomFilter.dir/MurmurHash3.cpp.o
+/usr/bin/ranlib libBloomFilter.a
