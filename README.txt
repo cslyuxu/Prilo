@@ -1,6 +1,6 @@
 -----------------------
 Purpose of LGPQ (PPMatch is an early name of LGPQ)
-Technical Report ---- main.pdf
+main.pdf --- Technical Report (including the proofs, privacy analysis, etc.)
 -----------------------
 
 The project demonstrates serveral C++11 features inside the Enclave:
