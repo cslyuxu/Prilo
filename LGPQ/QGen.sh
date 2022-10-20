@@ -2,7 +2,7 @@
 
 labelsize="64"
 
-diameter="4"
+diameter="3"
 
 queryNum="10"
 
