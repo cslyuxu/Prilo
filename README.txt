@@ -1,6 +1,9 @@
 -----------------------
-Purpose of LGPQ (PPMatch is an early name of LGPQ)
+Purpose of LGPQ
 main.pdf --- Technical Report (including the proofs, privacy analysis, etc.)
+LGPQ/query/* --- queries for Slashdot, DBLP and Twitter
+LGPQ/QGen.sh --- Query Generator
+LGPQ.sh --- LGPQ evaluation
 -----------------------
 
 The project demonstrates serveral C++11 features inside the Enclave:
@@ -44,7 +47,7 @@ How to Build/Execute the C++11 sample program
     f. Simulation Mode, Release build:
         $ make SGX_MODE=SIM SGX_DEBUG=0
 4. Execute the binary directly:
-    $ ./Test.sh
+    $ ./LGPQ.sh
 5. Remember to "make clean" before switching build mode
 
 -------------------------------------------------

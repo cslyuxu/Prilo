@@ -81,7 +81,7 @@ else
 	Urts_Library_Name := sgx_urts
 endif
 
-App_Cpp_Files := PPMatch/main.cpp $(wildcard PPMatch/BF/*.cpp PPMatch/PPMatch.cpp)
+App_Cpp_Files := LGPQ/main.cpp $(wildcard LGPQ/BF/*.cpp LGPQ/EcallBF.cpp)
 App_Include_Paths := -IApp -I$(SGX_SDK)/include
 
 App_C_Flags := -fPIC -Wno-attributes $(App_Include_Paths)
@@ -104,16 +104,16 @@ App_Link_Flags := -L$(SGX_LIBRARY_PATH) -l$(Urts_Library_Name) -lpthread -lgmp -
 
 App_Cpp_Objects := $(App_Cpp_Files:.cpp=.o)
 
-App_Name := PPMatchApp
+App_Name := LGPQApp
 
 ######## Enclave Settings ########
 
-Enclave_Version_Script := PPMatchEnclave/Enclave_debug.lds
+Enclave_Version_Script := LGPQEnclave/Enclave_debug.lds
 ifeq ($(SGX_MODE), HW)
 ifneq ($(SGX_DEBUG), 1)
 ifneq ($(SGX_PRERELEASE), 1)
 	# Choose to use 'Enclave.lds' for HW release mode
-	Enclave_Version_Script = PPMatchEnclave/Enclave.lds 
+	Enclave_Version_Script = LGPQEnclave/Enclave.lds 
 endif
 endif
 endif
@@ -127,7 +127,7 @@ else
 endif
 Crypto_Library_Name := sgx_tcrypto
 
-Enclave_Cpp_Files := PPMatchEnclave/Enclave.cpp $(wildcard PPMatchEnclave/TrustedLibrary/*.cpp)
+Enclave_Cpp_Files := LGPQEnclave/Enclave.cpp $(wildcard LGPQEnclave/TrustedLibrary/*.cpp)
 Enclave_Include_Paths := -IEnclave -I$(SGX_SDK)/include -I$(SGX_SDK)/include/libcxx -I$(SGX_SDK)/include/tlibc 
 
 Enclave_C_Flags := -nostdinc -fvisibility=hidden -fpie -fstack-protector -fno-builtin-printf $(Enclave_Include_Paths)
@@ -156,7 +156,7 @@ Enclave_Cpp_Objects := $(Enclave_Cpp_Files:.cpp=.o)
 
 Enclave_Name := enclave.so
 Signed_Enclave_Name := enclave.signed.so
-Enclave_Config_File := PPMatchEnclave/Enclave.config.xml
+Enclave_Config_File := LGPQEnclave/Enclave.config.xml
 
 ifeq ($(SGX_MODE), HW)
 ifeq ($(SGX_DEBUG), 1)
@@ -211,56 +211,56 @@ ifneq ($(Build_Mode), HW_RELEASE)
 endif
 
 .config_$(Build_Mode)_$(SGX_ARCH):
-	@rm -f .config_* $(App_Name) $(Enclave_Name) $(Signed_Enclave_Name) $(App_Cpp_Objects) PPMatch/Enclave_u.* $(Enclave_Cpp_Objects) PPMatchEnclave/Enclave_t.*
+	@rm -f .config_* $(App_Name) $(Enclave_Name) $(Signed_Enclave_Name) $(App_Cpp_Objects) LGPQ/Enclave_u.* $(Enclave_Cpp_Objects) LGPQEnclave/Enclave_t.*
 	@touch .config_$(Build_Mode)_$(SGX_ARCH)
 
 ######## App Objects ########
 
-PPMatch/Enclave_u.h: $(SGX_EDGER8R) PPMatchEnclave/Enclave.edl
-	@cd PPMatch && $(SGX_EDGER8R) --untrusted ../PPMatchEnclave/Enclave.edl --search-path ../PPMatchEnclave --search-path $(SGX_SDK)/include
+LGPQ/Enclave_u.h: $(SGX_EDGER8R) LGPQEnclave/Enclave.edl
+	@cd LGPQ && $(SGX_EDGER8R) --untrusted ../LGPQEnclave/Enclave.edl --search-path ../LGPQEnclave --search-path $(SGX_SDK)/include
 	@echo "GEN  =>  $@"
 
-PPMatch/Enclave_u.c: PPMatch/Enclave_u.h
+LGPQ/Enclave_u.c: LGPQ/Enclave_u.h
 
-PPMatch/Enclave_u.o: PPMatch/Enclave_u.c
+LGPQ/Enclave_u.o: LGPQ/Enclave_u.c
 	@$(CC) $(SGX_COMMON_CFLAGS) $(App_C_Flags) -c $< -o $@
 	@echo "CC   <=  $<"
 
-PPMatch/%.o: PPMatch/%.cpp PPMatch/Enclave_u.h
+LGPQ/%.o: LGPQ/%.cpp LGPQ/Enclave_u.h
 	@$(CXX) $(SGX_COMMON_CXXFLAGS) $(App_Cpp_Flags) -c $< -o $@
 	@echo "CXX  <=  $<"
 
-$(App_Name): PPMatch/Enclave_u.o $(App_Cpp_Objects)
+$(App_Name): LGPQ/Enclave_u.o $(App_Cpp_Objects)
 	@$(CXX) $^ -o $@ $(App_Link_Flags)
 	@echo "LINK =>  $@"
 
 ######## Enclave Objects ########
 
-PPMatchEnclave/Enclave_t.h: $(SGX_EDGER8R) PPMatchEnclave/Enclave.edl
-	@cd PPMatchEnclave && $(SGX_EDGER8R) --trusted ../PPMatchEnclave/Enclave.edl --search-path ../PPMatchEnclave --search-path $(SGX_SDK)/include
+LGPQEnclave/Enclave_t.h: $(SGX_EDGER8R) LGPQEnclave/Enclave.edl
+	@cd LGPQEnclave && $(SGX_EDGER8R) --trusted ../LGPQEnclave/Enclave.edl --search-path ../LGPQEnclave --search-path $(SGX_SDK)/include
 	@echo "GEN  =>  $@"
 
-PPMatchEnclave/Enclave_t.c: PPMatchEnclave/Enclave_t.h
+LGPQEnclave/Enclave_t.c: LGPQEnclave/Enclave_t.h
 
-PPMatchEnclave/Enclave_t.o: PPMatchEnclave/Enclave_t.c
+LGPQEnclave/Enclave_t.o: LGPQEnclave/Enclave_t.c
 	@$(CC) $(SGX_COMMON_CFLAGS) $(Enclave_C_Flags) -c $< -o $@
 	@echo "CC   <=  $<"
 
-PPMatchEnclave/%.o: PPMatchEnclave/%.cpp
+LGPQEnclave/%.o: LGPQEnclave/%.cpp
 	@$(CXX) $(SGX_COMMON_CXXFLAGS) $(Enclave_Cpp_Flags) -c $< -o $@
 	@echo "CXX  <=  $<"
 
-$(Enclave_Cpp_Objects): PPMatchEnclave/Enclave_t.h
+$(Enclave_Cpp_Objects): LGPQEnclave/Enclave_t.h
 
-$(Enclave_Name): PPMatchEnclave/Enclave_t.o $(Enclave_Cpp_Objects)
+$(Enclave_Name): LGPQEnclave/Enclave_t.o $(Enclave_Cpp_Objects)
 	@$(CXX) $^ -o $@ $(Enclave_Link_Flags)
 	@echo "LINK =>  $@"
 
 $(Signed_Enclave_Name): $(Enclave_Name)
-	@$(SGX_ENCLAVE_SIGNER) sign -key PPMatchEnclave/Enclave_private_test.pem -enclave $(Enclave_Name) -out $@ -config $(Enclave_Config_File)
+	@$(SGX_ENCLAVE_SIGNER) sign -key LGPQEnclave/Enclave_private_test.pem -enclave $(Enclave_Name) -out $@ -config $(Enclave_Config_File)
 	@echo "SIGN =>  $@"
 
 .PHONY: clean
 
 clean:
-	@rm -f .config_* $(App_Name) $(Enclave_Name) $(Signed_Enclave_Name) $(App_Cpp_Objects) PPMatch/Enclave_u.* $(Enclave_Cpp_Objects) PPMatchEnclave/Enclave_t.*
+	@rm -f .config_* $(App_Name) $(Enclave_Name) $(Signed_Enclave_Name) $(App_Cpp_Objects) LGPQ/Enclave_u.* $(Enclave_Cpp_Objects) LGPQEnclave/Enclave_t.*
