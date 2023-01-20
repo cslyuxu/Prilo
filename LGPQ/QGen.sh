@@ -2,12 +2,20 @@
 
 labelsize="64"
 
-diameter="3"
+hopsize="3"
+
+diameter="4"
 
 queryNum="10"
 
+pathlength="3"
+
+pathNum="1"
+
 querysize="8"
 
+#mode 0:fast test 1:homo 2:strong simulation
+mode="2"
 
 ##### GrapghTransformation
 

@@ -1,11 +1,17 @@
 -----------------------
-Purpose of LGPQ
-main.pdf --- Technical Report (including the proofs, privacy analysis, etc.)
-LGPQ/query/* --- queries for Slashdot, DBLP and Twitter
-LGPQ/QGen.sh --- Query Generator
-LGPQ.sh --- LGPQ evaluation
+Purpose of Prilo* (previously called LGPQ)
+- main.pdf --- Technical Report (including the proofs, privacy analysis, etc.)
+- LGPQ/query/* --- queries for Slashdot, DBLP, Twitter and LDBC
+- LGPQ/QGen.sh --- Query Generator
+- LGPQ.sh --- LGPQ evaluation
+- LDBC.sh --- evaluation on the LDBC dataset
 -----------------------
+Datasets
+- Slashdot, DLBP and Twitter: http://snap.stanford.edu/data/index.html
+- LDBC Social Network Benchmark graphs: https://repository.surfsara.nl/datasets/cwi/snb#files
+- The scripts to transform the formats of these datasets are in the directory: LGPQ/GraphTransformation 
 
+-----------------------
 The project demonstrates serveral C++11 features inside the Enclave:
 - lambda expressions;
 - rvalue references and move semantics;
@@ -29,7 +35,7 @@ The project demonstrates serveral C++11 features inside the Enclave:
 ---------------------------------------------
 How to Build/Execute the C++11 sample program
 ---------------------------------------------
-1. Install Intel(R) Software Guard Extensions (Intel(R) SGX) SDK for Linux* OS
+1. Install Intel(R) Software Guard Extensions (Intel(R) SGX) SDK for Linux* OS (https://github.com/intel/linux-sgx\#license)
 2. Install GMP library
 3. Make sure your environment is set:
     $ source ${sgx-sdk-install-path}/environment

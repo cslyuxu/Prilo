@@ -254,7 +254,7 @@ int SGX_CDECL main(int argc, char *argv[])	{
     int NLhop, pathlength;
     NLhop = twigletlength;
     pathlength = twigletlength;
-	LGPQ<VertexLabel, EdgeLabel> ssim(&Query, &Graph, OutFile, NLhop, pathlength, labelsize, pathlength, mode, threshold);
+	LGPQ<VertexLabel, EdgeLabel> ssim(&Query, &Graph, OutFile, NLhop, pathlength+1, labelsize, pathlength, mode, threshold);
     //For testing LGPQ
 	//ssim.Match();
 	

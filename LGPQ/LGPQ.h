@@ -717,7 +717,7 @@ void LGPQ<VLabelType, ELabelType>::Match()
 		double TwigTimeTemp = 0;
 		startSeven = clock();
 		TwigTime[pointer] = 0;
-		for (int i = 3; i <= this->pathlength; i++)
+		for (int i = 3; i <= this->twiglength; i++)
 			Enc_Twig(TwigLabel, TwigNum, TwigIndex1, TwigIndex2, pointer, M_B, Matrix_ball, size_ball, cgbe, TwigTimeTemp, TwigTime, TwigBallReadTime, Matrix_Ball[s], s, i, 50, cipher_one);
 
 		// Enc_Twig(TwigLabel, TwigNum, TwigIndex1, TwigIndex2, pointer, M_B, Matrix_ball, size_ball, cgbe, TwigTimeTemp, TwigTime, TwigBallReadTime, Matrix_Ball[s], s, twiglength, 50, cipher_one);
@@ -991,6 +991,9 @@ void LGPQ<VLabelType, ELabelType>::Match()
 	cout << "The Dealer need " << (double)(endTime - startTime) / CLOCKS_PER_SEC << " seconds to generate the ball suborders!" << endl;
 
 	OutFile << MaximumBFNum << endl;
+	OutFile << NeighborLabel_num << endl;
+	OutFile << NL_Time << endl;
+	OutFile << Decrypt_NeighborLabel << endl;
 
 	/*free the space for Queries */
 	for (int i = 0; i < hoplength; i++)
