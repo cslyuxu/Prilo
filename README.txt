@@ -5,6 +5,7 @@ Purpose of Prilo* (previously called LGPQ)
 - LGPQ/QGen.sh --- Query Generator
 - LGPQ.sh --- LGPQ evaluation
 - LDBC.sh --- evaluation on the LDBC dataset
+
 -----------------------
 Datasets
 - Slashdot, DLBP and Twitter: http://snap.stanford.edu/data/index.html
